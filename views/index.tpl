@@ -8,6 +8,8 @@
 </head>
 <body>
 	<h3>Lokaverkefni</h3>
+	<p><a href="/login">Login/register</a></p>
+
 
 </body>
 </html>

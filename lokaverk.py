@@ -1,10 +1,34 @@
 import pymysql
 from bottle import *
 
-@get("/")
+@route("/")
 def index():
     return template("index.tpl")
 
+@get("/login")
+def login():
+    return template("login.tpl")
+
+@route('/donyskra', method='POST')
+def nyr():
+    u = request.forms.get('user')
+    p = request.forms.get('pass')
+    n = request.forms.get('nafn')
+
+    conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword', db='3004012790_lokaverk_vef')
+
+    cur = conn.cursor()
+    cur.execute("SELECT count(*) FROM 3004012790_lokaverk_vef.users where user=%s", (u))
+    result = cur.fetchone()
+
+    if result[0] == 0:
+        cur.execute("INSERT INTO 3004012790_lokaverk_vef.users values(%s,%s,%s)", (u,p,n))
+        conn.commit()
+        cur.close()
+        conn.close()
+        return u, " hefur verið skráður <br><a href='/'>Heim</a>"
+    else:
+        return u, " er frátekið notandanafn, reyndu aftur <br><a href='/#ny'>Nýskrá</a>"
 
 @route("/static/<skra>")
 def static_skrar(skra):
