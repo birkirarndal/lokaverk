@@ -2,7 +2,8 @@
 	box-sizing: border-box;
 }
 body {
-	max-width: 25em;
+	max-width: 50em;
+	text-align: center;
 	margin: 0 auto;
 	font-family: sans-serif;
 	background-color: lightgray;

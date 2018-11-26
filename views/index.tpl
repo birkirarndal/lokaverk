@@ -10,6 +10,7 @@
 	<h3>Lokaverkefni</h3>
 	<p><a href="/login">Login/register</a></p>
 
+	<h3>{{rows}}</h3>
 
 </body>
 </html>

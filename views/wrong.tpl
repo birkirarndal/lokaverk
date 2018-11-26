@@ -5,7 +5,7 @@
 	<title>Ekki leynisíða</title>
 </head>
 <body>
-	<h2>Þú ert ekki kominn á leynis síðuna</h2>
+	<h2>Wrong username or password</h2>
 	<a href="/">Til baka</a>
 </body>
 </html>

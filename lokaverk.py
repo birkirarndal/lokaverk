@@ -3,7 +3,17 @@ from bottle import *
 
 @route("/")
 def index():
-    return template("index.tpl")
+    b = request.forms.get('blog')
+    u = request.forms.get('user')
+    conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword', db='3004012790_lokaverk_vef')
+
+    cur = conn.cursor()
+
+    cur.execute("SELECT blog FROM 3004012790_lokaverk_vef.blogs")
+    result = cur.fetchall()
+    print(result)
+    output = template('index', rows=result)
+    return output
 
 @get("/login")
 def login():
@@ -21,6 +31,7 @@ def nyr():
     cur.execute("SELECT count(*) FROM 3004012790_lokaverk_vef.users where user=%s", (u))
     result = cur.fetchone()
 
+
     if result[0] == 0:
         cur.execute("INSERT INTO 3004012790_lokaverk_vef.users values(%s,%s,%s)", (u,p,n))
         conn.commit()
@@ -29,6 +40,25 @@ def nyr():
         return u, " hefur verið skráður <br><a href='/'>Heim</a>"
     else:
         return u, " er frátekið notandanafn, reyndu aftur <br><a href='/#ny'>Nýskrá</a>"
+
+@route('/doinnskra', method='POST')
+def innkra():
+    u = request.forms.get('user')
+    p = request.forms.get('pass')
+
+    conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword', db='3004012790_vef2_v7')
+    cur = conn.cursor()
+
+    cur.execute("SELECT count(*) FROM 3004012790_vef2_v7.users where user=%s and pass=%s",(u,p))
+    result = cur.fetchone()
+    print(result)
+    if result[0] == 1:
+
+        cur.close()
+        conn.close()
+        return template('profile', u=u)
+    else:
+        return template('wrong')
 
 @route("/static/<skra>")
 def static_skrar(skra):
