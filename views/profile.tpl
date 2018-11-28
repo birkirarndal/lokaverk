@@ -8,9 +8,11 @@
 </head>
 <body>
 	<h2>Your profile {{u}}</h2>
-
-	<textarea></textarea>
-
+	<form method="post" action="/nyblog" accept-charset="ISO-8859-1">
+	<textarea name="blog" cols="100" rows="5"></textarea>
+		<input type="text" name="user" required> | <input type="submit" name="skrifa blog">
+		
+	</form>
 	<a href="/">Signout</a>
 </body>
 </html>

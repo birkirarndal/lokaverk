@@ -60,6 +60,29 @@ def innkra():
     else:
         return template('wrong')
 
+@route('/nyblog', method='POST')
+def nyblog():
+    i = request.forms.get('id')
+    b = request.forms.get('blog')
+    u = request.forms.get('user')
+
+    conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword', db='3004012790_lokaverk_vef')
+
+    cur = conn.cursor()
+    cur.execute("SELECT count(*) FROM 3004012790_lokaverk_vef.blogs where blog=%s", (b))
+    result = cur.fetchone()
+
+    if result[0] == 0:
+        cur.execute("INSERT INTO 3004012790_lokaverk_vef.blogs(blog,user) values(%s,%s)", (b,u))
+        conn.commit()
+        cur.close()
+        conn.close()
+        return redirect('/')
+
+
+
+
+
 @route("/static/<skra>")
 def static_skrar(skra):
     return static_file(skra, root='./static')

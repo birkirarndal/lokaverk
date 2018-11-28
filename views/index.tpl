@@ -9,8 +9,11 @@
 <body>
 	<h3>Lokaverkefni</h3>
 	<p><a href="/login">Login/register</a></p>
-
-	<h3>{{rows}}</h3>
+	
+	% for x in range(4):
+		<h3>{{rows[x][0]}}</h3>
+		<hr>
+	% end
 
 </body>
 </html>

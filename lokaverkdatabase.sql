@@ -8,11 +8,13 @@ CREATE TABLE users (
 );
 
 CREATE TABLE blogs(
-	id INT PRIMARY KEY,
+	id INT PRIMARY KEY auto_increment,
     blog VARCHAR(500) NOT NULL,
     user varchar(50),
     foreign key (user) references users(user)
 );
+
+
 
 
 insert into users values ('bfha','12345','Birkir Arndal');
