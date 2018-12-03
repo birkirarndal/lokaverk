@@ -10,7 +10,7 @@
 	<h3>Lokaverkefni</h3>
 	<p><a href="/login">Login/register</a></p>
 	
-	% for x in range(4):
+	% for x in range(2):
 		<h3>{{rows[x][0]}}</h3>
 		<hr>
 	% end
