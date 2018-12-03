@@ -8,11 +8,14 @@ def index():
     conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword', db='3004012790_lokaverk_vef')
 
     cur = conn.cursor()
-
+    c = conn.cursor()
     cur.execute("SELECT blog FROM 3004012790_lokaverk_vef.blogs")
+    c.execute("SELECT count(blog) FROM 3004012790_lokaverk_vef.blogs")
     result = cur.fetchall()
+    result2 = c.fetchone()
     print(result)
-    output = template('index', rows=result)
+    print(result2)
+    output = template('index', rows=result, c=result2, b=b)
     return output
 
 @get("/login")
@@ -78,7 +81,6 @@ def nyblog():
         cur.close()
         conn.close()
         return redirect('/')
-
 
 
 

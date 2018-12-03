@@ -2,7 +2,7 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="/static/style.css">
-	<title>Ekki leynisíða</title>
+	<title>ERROR</title>
 </head>
 <body>
 	<h2>Wrong username or password</h2>
