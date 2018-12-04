@@ -1,3 +1,4 @@
+
 create database 3004012790_lokaverk_vef;
 use 3004012790_lokaverk_vef;
 

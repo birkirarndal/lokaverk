@@ -1,7 +1,7 @@
 import pymysql
 from bottle import *
 
-@route("/")
+@get("/")
 def index():
     b = request.forms.get('blog')
     u = request.forms.get('user')
@@ -48,7 +48,7 @@ def innkra():
     conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword', db='3004012790_vef2_v7')
     cur = conn.cursor()
 
-    cur.execute("SELECT count(*) FROM 3004012790_vef2_v7.users where user=%s and pass=%s",(u,p))
+    cur.execute("SELECT count(*) FROM 3004012790_lokaverk_vef.users where user=%s and pass=%s",(u,p))
     result = cur.fetchone()
     print(result)
     if result[0] == 1:
