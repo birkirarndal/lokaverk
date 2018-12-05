@@ -6,6 +6,6 @@
 </head>
 <body>
 	<h2>Wrong username or password</h2>
-	<a href="/">Til baka</a>
+	<a href="/">Forsíða</a>
 </body>
 </html>

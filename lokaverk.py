@@ -14,9 +14,9 @@ def index():
     output = template('index', rows=result)
     return output
 
-@get("/login")
+@route("/login")
 def login():
-    return template("login.tpl")
+    return template("loginform.tpl")
 
 @route('/donyskra', method='POST')
 def nyr():
@@ -41,7 +41,7 @@ def nyr():
         return u, " er frátekið notandanafn, reyndu aftur <br><a href='/#ny'>Nýskrá</a>"
 
 @route('/doinnskra', method='POST')
-def innkra():
+def innskra():
     u = request.forms.get('user')
     p = request.forms.get('pass')
 
@@ -68,18 +68,36 @@ def nyblog():
     conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword', db='3004012790_lokaverk_vef')
 
     cur = conn.cursor()
-    cur.execute("SELECT count(*) FROM 3004012790_lokaverk_vef.blogs where blog=%s", (b))
+    cur.execute("SELECT count(user) FROM 3004012790_lokaverk_vef.users where user=%s", (u))
     result = cur.fetchone()
-
-    if result[0] == 0:
+    print(result)
+    if result[0] == 1:
         cur.execute("INSERT INTO 3004012790_lokaverk_vef.blogs(blog,user) values(%s,%s)", (b,u))
         conn.commit()
         cur.close()
         conn.close()
         return redirect('/')
+    else:
+        return template('wrong')
 
+@route('/blogs')
+def member():
+    conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword', db='3004012790_lokaverk_vef')
+    c = conn.cursor()
+    c.execute("SELECT * FROM 3004012790_lokaverk_vef.blogs")
+    result = c.fetchall()
+    c.close()
+    output=template('blogs',rows=result)
+    return output
 
-
+@route('/change')
+def breyta():
+    conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword', db='3004012790_lokaverk_vef')
+    c = conn.cursor()
+    c.execute("SELECT * FROM 3004012790_lokaverk_vef.blogs")
+    result = c.fetchall()
+    c.close()
+    return template('change',rows=result)
 
 @route("/static/<skra>")
 def static_skrar(skra):

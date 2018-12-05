@@ -14,5 +14,6 @@
 		
 	</form>
 	<a href="/">Signout</a>
+	<a href="/blogs">Blogs</a>
 </body>
 </html>
