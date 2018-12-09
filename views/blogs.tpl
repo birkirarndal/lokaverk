@@ -53,6 +53,5 @@
 	</table>
 
 	<a href="/">Aftur á Forsíðu</a>
-	<a href="/change">Breyta</a>
 </body>
 </html>
