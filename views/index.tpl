@@ -20,7 +20,7 @@
 	<p><a href="/login">Login/register</a></p>
 	% for x in rows:
 	% for y in x:
-		<h3 class="blog">{{y}}</h3>
+		<h4 class="blog">{{y}}</h4>
 		<hr>
 	% end
 	% end
