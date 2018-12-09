@@ -37,7 +37,7 @@
 		<label>
 			Notandanafn:
 			<br>
-			<input type="text" name="user" required>
+			<input type="text" name="user"  required>
 		</label>
 		<br><br>
 		<label>

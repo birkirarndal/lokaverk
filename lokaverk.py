@@ -81,27 +81,62 @@ def nyblog():
         return template('wrong')
 
 @route('/blogs')
-def member():
+def blogs():
     conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword', db='3004012790_lokaverk_vef')
     c = conn.cursor()
     c.execute("SELECT * FROM 3004012790_lokaverk_vef.blogs")
     result = c.fetchall()
     c.close()
     output=template('blogs',rows=result)
+    print(result)
     return output
 
-@route('/change')
-def breyta():
+@route('/change/<bid>')
+def breyta(bid):
+    id = bid[1:-1]
     conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword', db='3004012790_lokaverk_vef')
     c = conn.cursor()
-    c.execute("SELECT * FROM 3004012790_lokaverk_vef.blogs")
+    c.execute("SELECT * FROM 3004012790_lokaverk_vef.blogs where id ="+id)
     result = c.fetchall()
     c.close()
-    return template('change',rows=result)
+    return template('change',rows=result, bid=bid)
+
+@route("/update", method='POST')
+def update():
+    i = request.forms.get('id')
+    b = request.forms.get('blog')
+    u = request.forms.get('user')
+
+    conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword',
+                           db='3004012790_lokaverk_vef')
+
+    cur = conn.cursor()
+
+    cur.execute("UPDATE 3004012790_lokaverk_vef.blogs set blog = '"+ b +"' where ID = " + str(i))
+    conn.commit()
+    cur.close()
+    conn.close()
+    return redirect('/')
+
+@route('/del/<bid>')
+def delete(bid):
+    id = bid[1:-1]
+    conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword',
+                           db='3004012790_lokaverk_vef')
+
+    cur = conn.cursor()
+    cur.execute("delete from 3004012790_lokaverk_vef.blogs where ID = " + id)
+    conn.commit()
+    cur.close()
+    conn.close()
+    return redirect('/')
+
 
 @route("/static/<skra>")
 def static_skrar(skra):
     return static_file(skra, root='./static')
+
+
 
 ######################################################
 @error(404)

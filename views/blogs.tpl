@@ -39,15 +39,19 @@
 	<h2>Blogs</h2>
 	<p>Blogs:</p>
 	<table>
+		% cnt = 0
 		%for row in rows:
 		<tr>
 			%for col in row:
 			<td>{{col}}</td>
 			%end
+			<td><a href="/change/<{{rows[cnt][0]}}>">Edit</a></td>
+			<td><a href="/del/<{{rows[cnt][0]}}>">Delete</a></td>
 		</tr>
+		% cnt +=1
 		%end
 	</table>
-	<br>
+
 	<a href="/">Aftur á Forsíðu</a>
 	<a href="/change">Breyta</a>
 </body>
