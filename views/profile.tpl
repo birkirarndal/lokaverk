@@ -10,7 +10,8 @@
 	<h2>Your profile {{u}}</h2>
 	<form method="post" action="/nyblog" accept-charset="ISO-8859-1">
 	<textarea name="blog" cols="100" rows="5"></textarea>
-		<p>User: <input type="text" name="user" required> | <input type="submit" name="skrifa blog"></p>
+		<input hidden="True" type="text" name="user" value="{{u}}" required>
+		<input type="submit" name="skrifa blog">
 		
 	</form>
 	<a href="/">Signout</a>
