@@ -1,6 +1,6 @@
 import pymysql
 from bottle import *
-
+globaluser = ''
 @get("/")
 def index():
     b = request.forms.get('blog')
@@ -44,7 +44,8 @@ def nyr():
 def innskra():
     u = request.forms.get('user')
     p = request.forms.get('pass')
-
+    global globaluser
+    globaluser = u
     conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword', db='3004012790_vef2_v7')
     cur = conn.cursor()
 
@@ -82,9 +83,11 @@ def nyblog():
 
 @route('/blogs')
 def blogs():
+    u = request.forms.get('user')
     conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='3004012790', passwd='mypassword', db='3004012790_lokaverk_vef')
     c = conn.cursor()
-    c.execute("SELECT * FROM 3004012790_lokaverk_vef.blogs")
+    print("SELECT * FROM 3004012790_lokaverk_vef.blogs where user = "+ globaluser)
+    c.execute("SELECT * FROM 3004012790_lokaverk_vef.blogs where user = '"+ globaluser+"'")
     result = c.fetchall()
     c.close()
     output=template('blogs',rows=result)
